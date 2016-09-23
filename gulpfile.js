@@ -1,16 +1,18 @@
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
 
-gulp.task('default', function() {
+gulp.task('default', ['server']);
+
+gulp.task('server', () => {
   nodemon({
-    script: 'app.js',
+    script: 'src/app.js',
     ext: 'js',
     env: {
       PORT: 8000
     },
     ignore: ['./node_modules/**']
   })
-  .on('restart', function() {
+  .on('restart', () => {
     console.log('Restarting');
   });
 });
