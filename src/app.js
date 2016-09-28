@@ -12,16 +12,29 @@ const port = process.env.PORT || 3000;
 const bookRouter = express.Router();
 
 bookRouter.route('/books')
-.get((req, res) => {
-  Book.find((err, books) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.json(books);
-    }
-    return false;
+  .get((req, res) => {
+    const query = req.query;
+    Book.find(query, (err, books) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(books);
+      }
+      return false;
+    });
   });
-});
+
+bookRouter.route('/books/:bookId')
+  .get((req, res) => {
+    Book.findById(req.params.bookId, (err, books) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(books);
+      }
+      return false;
+    });
+  });
 
 app.use('/api', bookRouter);
 
