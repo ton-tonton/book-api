@@ -8,7 +8,7 @@ const bookRouter = express.Router();
 
 bookRouter.route('/books')
 .get((req, res) => {
-  const responseJson = {hi: 'there.'};
+  const responseJson = { hi: 'there.' };
   res.json(responseJson);
 });
 
@@ -19,5 +19,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Running on PORT: ' + port);
+  console.log(`Running on PORT: ${port}`);
 });
