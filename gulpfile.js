@@ -6,11 +6,12 @@ gulp.task('default', ['server']);
 gulp.task('server', () => {
   nodemon({
     script: 'src/app.js',
+    watch: 'src',
     ext: 'js',
     env: {
-      PORT: 8000
+      PORT: 8000,
     },
-    ignore: ['./node_modules/**']
+    ignore: ['./node_modules/**'],
   })
   .on('restart', () => {
     console.log('Restarting');
