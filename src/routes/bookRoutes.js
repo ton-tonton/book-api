@@ -1,10 +1,9 @@
 const express = require('express');
-const Book = require('./../models/bookModel');
 
-const routes = () => {
+const routes = (Book) => {
   const bookRouter = express.Router();
 
-  bookRouter.route('/books')
+  bookRouter.route('/')
     .post((req, res) => {
       const book = new Book(req.body);
       if (book.save()) {
@@ -24,7 +23,7 @@ const routes = () => {
       });
     });
 
-  bookRouter.route('/books/:bookId')
+  bookRouter.route('/:bookId')
     .get((req, res) => {
       Book.findById(req.params.bookId, (err, books) => {
         if (err) {
