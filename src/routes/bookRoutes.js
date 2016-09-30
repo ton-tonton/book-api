@@ -6,9 +6,13 @@ const routes = (Book) => {
   bookRouter.route('/')
     .post((req, res) => {
       const book = new Book(req.body);
-      if (book.save()) {
-        res.status(201).send(book);
-      }
+      book.save((err) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.json(book);
+        }
+      });
     })
     .get((req, res) => {
       const query = req.query;
@@ -44,8 +48,30 @@ const routes = (Book) => {
       book.author = req.body.author;
       book.genre = req.body.genre;
       book.read = req.body.read;
-      book.save();
-      res.json(book);
+      book.save((err) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.json(book);
+        }
+      });
+    })
+    .patch((req, res) => {
+      const book = req.book;
+      let key;
+      if (req.body._id) {
+        delete req.body._id;
+      }
+      for (key in req.body) {
+        book[key] = req.body[key];
+      }
+      book.save((err) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.json(book);
+        }
+      });
     });
   return bookRouter;
 };

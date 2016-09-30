@@ -18,6 +18,10 @@
       {"devDependencies": true}
     ],
     "no-unused-vars": "warn",
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "no-restricted-syntax": "off",
+    "no-underscore-dangle": "off",
+    "no-prototype-builtins": "off",
+    "guard-for-in": "off"
   }
 }
