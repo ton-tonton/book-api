@@ -8,6 +8,8 @@ const db = mongoose.connect('mongodb://localhost/bookAPI');
 
 const Book = require('./models/bookModel');
 
+const bookController = require('./controllers/bookController.js')(Book);
+
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -15,7 +17,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const bookRouter = require('./routes/bookRoutes.js')(Book);
+const bookRouter = require('./routes/bookRoutes.js')(Book, bookController);
 
 app.use('/api/books', bookRouter);
 
