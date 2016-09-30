@@ -72,6 +72,16 @@ const routes = (Book) => {
           res.json(book);
         }
       });
+    })
+    .delete((req, res) => {
+      const book = req.book;
+      book.remove((err) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(204).send('removed');
+        }
+      });
     });
   return bookRouter;
 };
