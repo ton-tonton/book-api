@@ -1,5 +1,5 @@
 const bookController = (Book) => {
-  function index(req, res) {
+  const index = (req, res) => {
     const query = req.query;
     Book.find(query, (err, books) => {
       if (err) {
@@ -8,14 +8,19 @@ const bookController = (Book) => {
         res.json(books);
       }
     });
-  }
+  };
 
-  function get(req, res) {
+  const get = (req, res) => {
     res.json(req.book);
-  }
+  };
 
-  function post(req, res) {
+  const post = (req, res) => {
     const book = new Book(req.body);
+    if (!req.body.title) {
+      res.status(400);
+      res.send('Title is required');
+      return;
+    }
     book.save((err) => {
       if (err) {
         res.status(500).send(err);
@@ -23,9 +28,9 @@ const bookController = (Book) => {
         res.json(book);
       }
     });
-  }
+  };
 
-  function put(req, res) {
+  const put = (req, res) => {
     const book = req.book;
     book.title = req.body.title;
     book.author = req.body.author;
@@ -38,9 +43,9 @@ const bookController = (Book) => {
         res.json(book);
       }
     });
-  }
+  };
 
-  function patch(req, res) {
+  const patch = (req, res) => {
     const book = req.book;
     let key;
     if (req.body._id) {
@@ -56,9 +61,9 @@ const bookController = (Book) => {
         res.json(book);
       }
     });
-  }
+  };
 
-  function remove(req, res) {
+  const remove = (req, res) => {
     const book = req.book;
     book.remove((err) => {
       if (err) {
@@ -67,7 +72,7 @@ const bookController = (Book) => {
         res.status(204).send('removed');
       }
     });
-  }
+  };
 
   return {
     index,
