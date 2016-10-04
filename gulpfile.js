@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const gulpMocha = require('gulp-mocha');
+const env = require('gulp-env');
 
 gulp.task('default', ['server']);
 
@@ -20,6 +21,7 @@ gulp.task('server', () => {
 });
 
 gulp.task('test', () => {
+  env({ vars: { ENV: 'Test' } });
   gulp.src('./tests/**/*.js')
       .pipe(gulpMocha({ reporter: 'nyan' }));
 });

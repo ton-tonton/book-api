@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const config = require('./config.js');
 
 mongoose.Promise = global.Promise;
 
-const db = mongoose.connect('mongodb://localhost/bookAPI');
+const db = mongoose.connect(config.mongodbPath);
 
 const Book = require('./models/bookModel');
 
@@ -28,3 +29,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Running on PORT: ${port}`);
 });
+
+module.exports = app;
